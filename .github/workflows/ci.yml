@@ -58,7 +58,7 @@ jobs:
       - name: Run Unit & Component Tests
         run: npm run test:ci --if-present
 
-  test-cypress-chrome:
+  test-cypress-chrome-headless:
     needs: [install, build]
     runs-on: ubuntu-22.04
     steps:
@@ -68,16 +68,23 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          headed: false
+          headless: true
           command: npx cypress run
           build: npm build
           start: npm start
           wait-on: "http://localhost:3001"
-      - name: Chrome headed
+
+  test-cypress-chrome-headed:
+    needs: [install, build]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Chrome headless
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          headed: true
+          headless: false
           command: npx cypress run
           build: npm build
           start: npm start
