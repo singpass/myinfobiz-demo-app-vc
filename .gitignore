@@ -37,4 +37,5 @@ next-env.d.ts
 
 cypress/videos
 cypress/screenshots
+cypress/support
 .nyc_output
