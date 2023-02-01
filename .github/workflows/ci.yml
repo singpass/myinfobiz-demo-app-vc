@@ -62,31 +62,16 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Cypress info
-        uses: ./
-        with:
-          # just for full picture after installing Cypress
-          # print information about detected browsers, etc
-          # see https://on.cypress.io/command-line#cypress-info
-          build: npx cypress info
-
-      - name: Chrome
-        uses: ./
-        with:
-          browser: chrome
-
-      - run: npx image-size cypress/screenshots/**/*.png
-
+        uses: actions/checkout@v2
       - name: Chrome headless
-        uses: ./
+        uses: cypress-io/github-action@v2
         with:
           browser: chrome
           headed: false
-
+          command: npx cypress run
       - name: Chrome headed
-        uses: ./
+        uses: cypress-io/github-action@v2
         with:
           browser: chrome
           headed: true
+          command: npx cypress run
