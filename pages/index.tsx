@@ -74,6 +74,7 @@ export default () => {
               <Button.Mode
                 active={mode === "request"}
                 onClick={() => setMode("request")}
+                data-testid="request-corporate-vc-btn-tab"
               >
                 {locale.request.tabButton}
               </Button.Mode>
@@ -81,6 +82,7 @@ export default () => {
               <Button.Mode
                 active={mode === "verify"}
                 onClick={() => setMode("verify")}
+                data-testid="verify-corporate-vc-btn-tab"
               >
                 {locale.verify.tabButton}
               </Button.Mode>

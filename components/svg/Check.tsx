@@ -13,7 +13,8 @@ export default () => (
     height={27}
     viewBox="0 0 40 27"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    xmlns="https://www.w3.org/TR/2018/CR-SVG2-20181004/"
+    data-testid="progress-dialog-success-svg"
   >
     <path
       d="M2 13.25L14 24.5L38 2"

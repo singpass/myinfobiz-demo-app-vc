@@ -1,4 +1,4 @@
-export const ENVIRONMENT = "sit.";
+export const ENVIRONMENT = "test.";
 
 export const APP_CONFIG = {
   DEMO_APP_CLIENT_ID: "STG2-MYINFO-SELF-TEST", //need to update to demo app for roll out

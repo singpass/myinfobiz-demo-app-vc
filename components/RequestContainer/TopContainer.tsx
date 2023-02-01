@@ -79,7 +79,11 @@ export default ({
       <TextArea rows={8} value={textareaValue} readOnly />
 
       <Footer>
-        <Button.Classic disabled={!textareaValue} onClick={onSubmit}>
+        <Button.Classic
+          disabled={!textareaValue}
+          onClick={onSubmit}
+          data-testid="request-btn"
+        >
           {locale.button.request}
         </Button.Classic>
 

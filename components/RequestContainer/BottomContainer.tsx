@@ -53,7 +53,9 @@ export default ({
    */
   return (
     <Wrapper>
-      <h3>{locale.request.response.title}</h3>
+      <h3 data-testid="request-corporate-vc-response-title">
+        {locale.request.response.title}
+      </h3>
 
       <StatusBanner status="success">
         {locale.request.response.successBanner}
@@ -66,6 +68,7 @@ export default ({
         copyText={textareaValue}
         status="success"
         readOnly
+        data-testid="request-corporate-vc-text-area"
       />
 
       <Footer>{footer}</Footer>

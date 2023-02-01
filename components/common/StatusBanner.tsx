@@ -40,6 +40,6 @@ export default ({ children, status }: { children: string; status: Status }) => (
     {status === "success" && <CheckCircle />}
     {status === "failed" && <CrossCircle />}
 
-    <p>{children}</p>
+    <p data-testid="request-corporate-vc-banner-text">{children}</p>
   </Wrapper>
 );

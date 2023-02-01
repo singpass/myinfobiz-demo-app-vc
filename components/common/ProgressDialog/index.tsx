@@ -137,14 +137,20 @@ export default ({
    * Render
    */
   return (
-    <Mask $visible={visible}>
+    <Mask $visible={visible} data-testid="progress-dialog">
       <Wrapper>
-        <TitleContainer>
-          {progressState === "in-progress" && <Loading />}
-          {progressState === "success" && <Check />}
-          {progressState === "failed" && <Cross />}
+        <TitleContainer data-testid="progress-dialog-title-container">
+          {progressState === "in-progress" && (
+            <Loading data-testid="progress-dialog-loading-svg" />
+          )}
+          {progressState === "success" && (
+            <Check data-testid="progress-dialog-success-svg" />
+          )}
+          {progressState === "failed" && (
+            <Cross data-testid="progress-dialog-failed-svg" />
+          )}
 
-          <p>
+          <p data-testid="progress-dialog-title">
             {progressState === "success" && locale.dialog.title.success}
             {progressState === "failed" &&
               `${locale.dialog.title.failed}\n${errMessage}`}
@@ -152,7 +158,7 @@ export default ({
           </p>
         </TitleContainer>
 
-        <TaskGroup>
+        <TaskGroup data-testid="progress-dialog-task-group">
           {tasks.titles.map((v, i) => (
             <TaskItem key={i} order={i + 1} state={taskStates[i]}>
               {v}
@@ -161,7 +167,10 @@ export default ({
         </TaskGroup>
 
         {(progressState === "success" || progressState === "failed") && (
-          <Button onClick={() => setVisible(false)} />
+          <Button
+            onClick={() => setVisible(false)}
+            data-testid="progress-dialog-close-btn"
+          />
         )}
       </Wrapper>
     </Mask>
