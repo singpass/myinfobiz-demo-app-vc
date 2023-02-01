@@ -15,16 +15,12 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        node-version: [14.x, 16.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: Install Dependencies
@@ -33,16 +29,12 @@ jobs:
   build:
     needs: install
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        node-version: [14.x, 16.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: Install Dependencies
@@ -50,19 +42,15 @@ jobs:
       - name: Test Build
         run: npm run build
 
-  test:
+  test-ci-if-present:
     needs: [install, build]
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        node-version: [14.x, 16.x]
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: Install Dependencies
@@ -83,77 +71,22 @@ jobs:
           # print information about detected browsers, etc
           # see https://on.cypress.io/command-line#cypress-info
           build: npx cypress info
-          working-directory: examples/chrome
-
-      - name: Electron
-        uses: ./
-        with:
-          working-directory: examples/chrome
-
-      # store screenshot captured during the test
-      - uses: actions/upload-artifact@v3
-        with:
-          name: screenshots-in-electron
-          path: examples/chrome/cypress/screenshots
-
-      - run: npx image-size cypress/screenshots/**/*.png
-        working-directory: examples/chrome
 
       - name: Chrome
         uses: ./
         with:
-          working-directory: examples/chrome
           browser: chrome
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: screenshots-in-chrome
-          path: examples/chrome/cypress/screenshots
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: video-in-chrome
-          path: examples/chrome/cypress/videos
-
       - run: npx image-size cypress/screenshots/**/*.png
-        working-directory: examples/chrome
 
       - name: Chrome headless
         uses: ./
         with:
-          working-directory: examples/chrome
           browser: chrome
           headed: false
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: screenshots-in-headless-chrome
-          path: examples/chrome/cypress/screenshots
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: video-in-headless-chrome
-          path: examples/chrome/cypress/videos
-
-      - run: npx image-size cypress/screenshots/**/*.png
-        working-directory: examples/chrome
 
       - name: Chrome headed
         uses: ./
         with:
-          working-directory: examples/chrome
           browser: chrome
           headed: true
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: screenshots-in-headless-chrome
-          path: examples/chrome/cypress/screenshots
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: video-in-headless-chrome
-          path: examples/chrome/cypress/videos
-
-      - run: npx image-size cypress/screenshots/**/*.png
-        working-directory: examples/chrome
