@@ -70,8 +70,8 @@ jobs:
           browser: chrome
           headless: true
           command: npx cypress run
-          build: npm build
-          start: npm start
+          build: npm run build
+          start: npm run start
           wait-on: "http://localhost:3001"
 
   test-cypress-chrome-headed:
@@ -86,6 +86,6 @@ jobs:
           browser: chrome
           headless: false
           command: npx cypress run
-          build: npm build
-          start: npm start
+          build: npm run build
+          start: npm run start
           wait-on: "http://localhost:3001"
