@@ -17,6 +17,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<CodeChallengeResponseData>
 ) {
+  if (req.method !== "GET") {
+    res.status(405).send({
+      error: "Method Not Allowed",
+    });
+    return;
+  }
   try {
     let pkceCodePair: PkceCodePair = MyInfoConnector.generatePKCECodePair();
     setCookie("codeVerifier", pkceCodePair.codeVerifier, { req, res });
