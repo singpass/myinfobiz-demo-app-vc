@@ -7,17 +7,20 @@
     <div>
       <!-- SHIELD BADGES -->
       <!-- package dependency -->
-      <a href="./blob/main/package.json">
+      <a href="./package.json">
         <img src="https://img.shields.io/github/package-json/dependency-version/singpass/myinfobiz-demo-app-vc/myinfo-vc-verifier?color=informational">
+      </a>
+      <a href="https://github.com/singpass/myinfobiz-demo-app-vc/actions/workflows/ci.yml">
+        <img src="https://img.shields.io/github/actions/workflow/status/singpass/myinfobiz-demo-app-vc/ci.yml">
       </a>
     </div>
     <br />
     <a href="./docs"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="./issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
+    <a href="https://github.com/singpass/myinfobiz-demo-app-vc/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
-    <a href="./issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
+    <a href="https://github.com/singpass/myinfobiz-demo-app-vc/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
   </p>
 </div>
 
@@ -55,8 +58,6 @@
     src=".github/screenshots/request-home.png"
     alt="Product Screenshot"
     width="800"
-    height="800"
-    style="width: 600px; height: 480px; object-fit: cover; object-position: 100% 0"
   >
 </div>
 
