@@ -11,7 +11,6 @@ interface VerifyVcApiRequest extends NextApiRequest {
 type VerifyVCResponseData = {
   error?: string;
   verificationResult?: any;
-  revokeStatus?: any;
 };
 
 export default async function handler(
@@ -26,21 +25,16 @@ export default async function handler(
   }
 
   try {
-    let vcData = JSON.parse(req.body.vcData);
+    const vcData = JSON.parse(req.body.vcData);
     // Verify Verifiable Credential
     console.log("Verifying Corporate Verifiable Credential...");
-    let verificationResult = await MyInfoVcVerifier.verify(vcData);
+    const verificationResult = await MyInfoVcVerifier.verify(vcData);
     console.log(
       "Corporate Verifiable Credential verification result:",
       verificationResult
     );
-    // Check Verifiable Credential Revoke status
-    console.log("Retrieving Corporate Verifiable Credential revoke status...");
-    let revokeStatus = await MyInfoVcVerifier.getRevokeStatus(vcData);
-    console.log("Corporate Verifiable Credential revoke status:", revokeStatus);
     res.status(200).send({
       verificationResult: verificationResult,
-      revokeStatus: revokeStatus,
     });
   } catch (_e) {
     let error = _e as Error;

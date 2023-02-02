@@ -47,11 +47,11 @@ export default () => {
   const handleAction = async (update: (s: Status) => void) => {
     try {
       // Step 1
-      await mockPromise({ ms: 50, resolve: true, response: "" });
+      await mockPromise({ ms: 100, resolve: true, response: "" });
       update("success");
 
       // Step 2
-      const res = await fetch("/api/vc/verify", {
+      const res2 = await fetch("/api/vc/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,10 +60,10 @@ export default () => {
           vcData: textAreaValue,
         }),
       });
-      if (!res.ok) {
+      if (!res2.ok) {
         throw new Error("Failed to verify VC");
       }
-      const verifyResponse = await res.json();
+      const verifyResponse = await res2.json();
       if (verifyResponse.verificationResult.error) {
         throw new Error(
           verifyResponse.verificationResult.error.errors[0].message
@@ -72,14 +72,24 @@ export default () => {
       update("success");
 
       // Step 3
-      await mockPromise({ ms: 50, resolve: true, response: "" });
+      await mockPromise({ ms: 100, resolve: true, response: "" });
       update("success");
 
       // Step 4
-      if (
-        !verifyResponse.verificationResult.verified ||
-        verifyResponse.revokeStatus
-      ) {
+      const res4 = await fetch("/api/vc/revocation-status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          vcData: textAreaValue,
+        }),
+      });
+      if (!res4.ok) {
+        throw new Error("Failed to verify VC");
+      }
+      const revokeStatusResponse = await res4.json();
+      if (revokeStatusResponse.revokeStatus) {
         throw new Error("Failed to verify revocation status");
       }
       update("success");
