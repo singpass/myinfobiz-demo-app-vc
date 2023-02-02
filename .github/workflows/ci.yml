@@ -47,6 +47,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Create Env File
+        run: |
+          cp .github/.env.ci .env
+          echo "VC_ETHEREUM_WALLET_ADDRESS=${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}" >> .env
+          echo "VC_ETHEREUM_PRIVATE_KEY=${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}" >> .env
+          cat .env
       - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
@@ -64,6 +70,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Env File
+        run: |
+          cp .github/.env.ci .env
+          echo "VC_ETHEREUM_WALLET_ADDRESS=${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}" >> .env
+          echo "VC_ETHEREUM_PRIVATE_KEY=${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}" >> .env
+          cat .env
       - name: Chrome headless
         uses: cypress-io/github-action@v2
         with:
@@ -83,6 +95,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Env File
+        run: |
+          cp .github/.env.ci .env
+          echo "VC_ETHEREUM_WALLET_ADDRESS=${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}" >> .env
+          echo "VC_ETHEREUM_PRIVATE_KEY=${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}" >> .env
+          cat .env
       - name: Chrome headed
         uses: cypress-io/github-action@v2
         with:
