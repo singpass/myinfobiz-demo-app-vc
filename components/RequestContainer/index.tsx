@@ -5,9 +5,9 @@ import styled from "styled-components";
 import { APP_CONFIG } from "@/config/app";
 import locale from "@/config/locale";
 import { SHOWN_CONFIG } from "@/config/shown";
-import { mockPromise } from "@/utils";
 import type { Status } from "@/utils/types";
 import type { CodeChallengeResponseData } from "@/pages/api/code-challenge";
+import type { CodeChallengeResponse as VcCodeChallengeResponse } from "@/pages/api/vc/code-challenge";
 import ProgressDialog from "components/common/ProgressDialog";
 import TopContainer from "./TopContainer";
 import BottomContainer from "./BottomContainer";
@@ -84,31 +84,7 @@ export default () => {
   const handleAction = async (update: (s: Status) => void) => {
     try {
       // Step 1
-      const res1 = await mockPromise({
-        ms: 50,
-        resolve: true,
-        response: "Failed to fetch code challenge",
-      });
-      update("success");
-
-      // Step 2
-      const res2 = await mockPromise({
-        ms: 50,
-        resolve: true,
-        response: "",
-      });
-      update("success");
-
-      // Step 3
-      const res3 = await mockPromise({
-        ms: 50,
-        resolve: true,
-        response: "Failed to verify code challenge",
-      });
-      update("success");
-
-      // Step 4
-      const res4 = await fetch("/api/vc/generate", {
+      const res1 = await fetch("/api/token", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,8 +93,61 @@ export default () => {
           authCode: router.query.code,
         }),
       });
+      if (!res1.ok) {
+        throw new Error(locale.request.response.failed.verifyEthereumAddress);
+      }
+      const { accessToken, sessionPopKeyPair } = await res1.json();
+      update("success");
+
+      // Step 2
+      const res2 = await fetch("/api/vc/code-challenge", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          accessToken: accessToken,
+          sessionPopKeyPair: sessionPopKeyPair,
+        }),
+      });
+      if (!res2.ok) {
+        throw new Error(locale.request.response.failed.codeChallenge);
+      }
+      const response: VcCodeChallengeResponse = await res2.json();
+      const codeChallenge = response.codeChallenge;
+      update("success");
+
+      // Step 3
+      const res3 = await fetch("/api/vc/ether", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          codeChallenge: codeChallenge,
+        }),
+      });
+      if (!res3.ok) {
+        throw new Error(locale.request.response.failed.verifyCodeChallenge);
+      }
+      const signedCodeChallenge = await res3.json();
+      update("success");
+
+      // Step 4
+      const res4 = await fetch("/api/vc/credentials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          accessToken: accessToken,
+          sessionPopKeyPair: sessionPopKeyPair,
+          codeChallenge: codeChallenge,
+          signedCodeChallenge: signedCodeChallenge,
+        }),
+      });
       if (!res4.ok) {
-        throw new Error("Failed to fetch VC");
+        throw new Error(locale.request.response.failed.getVc);
       }
       const vc = await res4.json();
       update("success");
@@ -133,15 +162,15 @@ export default () => {
   const handleSubmit = () => {
     console.log(SHOWN_CONFIG); // VC Config value
     const url = new URL(APP_CONFIG.MYINFO_API_AUTHORIZE);
-    url.searchParams.append("client_id", APP_CONFIG.DEMO_APP_CLIENT_ID);
-    url.searchParams.append("scope", APP_CONFIG.DEMO_APP_SCOPES);
-    url.searchParams.append("purpose_id", APP_CONFIG.DEMO_APP_PURPOSE_ID);
+    url.searchParams.append("client_id", APP_CONFIG.DEMO_APP_CLIENT_ID!);
+    url.searchParams.append("scope", APP_CONFIG.DEMO_APP_SCOPES!);
+    url.searchParams.append("purpose_id", APP_CONFIG.DEMO_APP_PURPOSE_ID!);
     url.searchParams.append("code_challenge", data.codeChallenge!);
     url.searchParams.append(
       "code_challenge_method",
       APP_CONFIG.DEMO_APP_CODE_CHALLENGE_METHOD
     );
-    url.searchParams.append("redirect_uri", APP_CONFIG.DEMO_APP_CALLBACK_URL);
+    url.searchParams.append("redirect_uri", APP_CONFIG.DEMO_APP_CALLBACK_URL!);
     window.location.replace(url.toString());
   };
 

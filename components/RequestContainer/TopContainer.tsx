@@ -56,7 +56,7 @@ export default ({
         <h3>{locale.request.title}</h3>
 
         <StatusBanner status="failed">
-          {locale.request.response.noCodeChallenge}
+          {locale.request.response.failed.codeChallenge}
         </StatusBanner>
 
         <TextArea rows={8} value={textareaValue} readOnly />

@@ -3,6 +3,7 @@ import locale from "@/config/locale";
 describe("Load Demo App", () => {
   beforeEach(() => {
     cy.visit("localhost:3001");
+    cy.wait(5_000);
   });
 
   it(`Should have a button labeled ${locale.button.request} with color #4c7aae and clickable`, () => {

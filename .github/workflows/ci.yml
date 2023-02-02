@@ -73,6 +73,9 @@ jobs:
           build: npm run build
           start: npm run start
           wait-on: "http://localhost:3001"
+        env:
+          VC_ETHEREUM_WALLET_ADDRESS: ${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}
+          VC_ETHEREUM_PRIVATE_KEY: ${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}
 
   test-cypress-chrome-headed:
     needs: [install, build]
@@ -80,7 +83,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Chrome headless
+      - name: Chrome headed
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
@@ -89,3 +92,6 @@ jobs:
           build: npm run build
           start: npm run start
           wait-on: "http://localhost:3001"
+        env:
+          VC_ETHEREUM_WALLET_ADDRESS: ${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}
+          VC_ETHEREUM_PRIVATE_KEY: ${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}

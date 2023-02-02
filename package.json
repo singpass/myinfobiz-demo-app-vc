@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "dev:test": "next dev -p 3001 -e test",
     "build": "next build",
     "start": "next start -p 3001",
-    "start:test": "next start -p 3001 -e test",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "next build && next start -p 3001 & cypress run",
+    "test:e2e": "cypress run",
+    "test:e2e:open": "cypress open",
+    "test:unit": "jest --coverage"
   },
   "dependencies": {
     "@mattrglobal/jsonld-signatures-bbs": "^1.1.0",

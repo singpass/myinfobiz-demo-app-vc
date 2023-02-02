@@ -1,10 +1,19 @@
-export const ENVIRONMENT = "test.";
+export const ENVIRONMENT = process.env.NEXT_PUBLIC_SINGPASS_ENV + ".";
 
-export const APP_CONFIG = {
-  DEMO_APP_CLIENT_ID: "STG2-MYINFO-SELF-TEST", //need to update to demo app for roll out
-  DEMO_APP_CALLBACK_URL: "http://localhost:3001/callback",
-  DEMO_APP_PURPOSE_ID: "demonstration",
+export type AppConfig = {
+  DEMO_APP_CLIENT_ID: string;
+  DEMO_APP_CALLBACK_URL: string;
+  DEMO_APP_PURPOSE_ID: string;
+  MYINFO_API_AUTHORIZE: string;
+  DEMO_APP_SCOPES: string;
+  DEMO_APP_CODE_CHALLENGE_METHOD: string;
+};
+
+export const APP_CONFIG: AppConfig = {
+  DEMO_APP_CLIENT_ID: process.env.NEXT_PUBLIC_DEMO_APP_CLIENT_ID,
+  DEMO_APP_CALLBACK_URL: process.env.NEXT_PUBLIC_DEMO_APP_CALLBACK_URL,
+  DEMO_APP_PURPOSE_ID: process.env.NEXT_PUBLIC_DEMO_APP_PURPOSE_ID,
   MYINFO_API_AUTHORIZE: `https://${ENVIRONMENT.toLowerCase()}api.myinfo.gov.sg/biz/v3/authorize`,
-  DEMO_APP_SCOPES: "corporatebasiccredential",
+  DEMO_APP_SCOPES: process.env.NEXT_PUBLIC_DEMO_APP_SCOPES,
   DEMO_APP_CODE_CHALLENGE_METHOD: "S256",
 };

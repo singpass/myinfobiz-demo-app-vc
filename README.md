@@ -68,7 +68,7 @@ Refer to the [`development`](./docs/development.md) documentation for more detai
 
 ### Prerequisites
 
-- [node](https://nodejs.org/en/) >= v14.x
+- [node](https://nodejs.org/en/) >= v18.x
 - npm >= v8.x
 
 ### Initial Setup
@@ -79,8 +79,24 @@ Refer to the [`development`](./docs/development.md) documentation for more detai
 git clone git@github.com:singpass/myinfobiz-demo-app-vc.git
 ```
 
-2. Update the configuration files found at [`./config`](./config/). Refer to [configurations docs](docs/configurations.md) for more information on the specific configuration.
-3. Update the encryption and signing keys found at [`./cert`](./cert/)
+2. Make a copy of [`./.env.local.example`](.env.local.example) and rename it to `.env.local`.
+3. Replace the values found in `.env.local` as required. Refer to [configurations docs](docs/configurations.md) for more information on the specific configuration that is needed.
+
+4. Replace the sample encryption and signing keys found at [`./cert`](./cert/)
+
+5. Install dependencies
+
+```bash
+# clean install
+npm ci
+```
+
+6. Start development server on your local
+
+```bash
+# reloads UI on code change
+npm run dev
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -117,7 +133,7 @@ npm run build
 2. Serve the app on a mimicked production environment
 
 ```bash
-npm run start:test
+npm run start
 ```
 
 ### Deploying on external servers

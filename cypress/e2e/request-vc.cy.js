@@ -27,7 +27,7 @@ describe("Demo app requesting VC", () => {
     })
       .children('svg[data-testid="progress-dialog-loading-svg"]')
       .should("be.visible");
-    cy.wait(30_000);
+    cy.wait(60_000); // should wait for all the api calls
     cy.get("div[data-testid='progress-dialog-task-group']").should(
       "have.text",
       locale.request.step1.concat(

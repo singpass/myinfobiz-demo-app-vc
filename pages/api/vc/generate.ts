@@ -31,7 +31,7 @@ export default async function handler(
   try {
     const codeVerifier = getCookie("codeVerifier", { req, res }) as string;
     // get variables from frontend
-    var authCode = req.body.authCode;
+    const authCode = req.body.authCode;
     console.log("GENERATE - codeVerifier", codeVerifier);
     console.log("Calling MyInfo NodeJs Library...");
 
