@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   --font-size: 14px;
 
   display: flex;
+  flex: none;
   align-items: center;
   gap: 10px;
 
