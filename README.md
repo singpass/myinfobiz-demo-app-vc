@@ -59,6 +59,12 @@
     alt="Product Screenshot"
     width="800"
   >
+  <h3>Sample Verifiable Credential</h3>
+  <img
+    src=".github/screenshots/sample-corporate-vc.png"
+    alt="Product Screenshot"
+    width="800"
+  >
 </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -69,8 +75,14 @@ Refer to the [`development`](./docs/development.md) documentation for more detai
 
 ### Prerequisites
 
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). To get started, install the following packages:
+
 - [node](https://nodejs.org/en/) >= v18.x
-- npm >= v8.x
+- [npm](https://nodejs.org/en/download) >= v8.x
+
+Before setting up the project, please create an ethereum wallet by following the steps under the [ethereum guide](/docs/ethereum.md)\*.
+
+> _\***Disclaimer:** all ethereum wallet addresses and private keys listed as examples are publicly available and should NOT be used for any other purposes other than for the demonstration of this app._
 
 ### Initial Setup
 
@@ -103,7 +115,7 @@ npm run dev
 
 ## Testing
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). This project leverages [Jest] for unit tests, and [Cypress] for e2e tests.
+This project leverages [Jest] for unit tests, and [Cypress] for e2e tests.
 
 To run unit tests with [Jest]:
 
@@ -116,6 +128,8 @@ To run e2e tests with [Cypress]:
 ```bash
 npm run test:e2e
 ```
+
+Refer to the [sample verifiable credential](/docs/example-vc.json) for testing verify function of this demo app.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
