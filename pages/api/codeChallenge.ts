@@ -29,7 +29,6 @@ export default async function handler(
     res.status(200).send({ codeChallenge: pkceCodePair.codeChallenge });
   } catch (_e) {
     let error = _e as Error;
-    console.log("Error", error);
     res.status(500).send({
       error: error.message,
     });

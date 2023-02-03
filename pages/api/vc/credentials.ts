@@ -74,5 +74,6 @@ export default async function handler(
     headersObj,
     bodyStr
   );
+  console.log("credentialData", credentialData);
   res.status(200).json({ credentialData: credentialData });
 }
