@@ -6,8 +6,8 @@ import { APP_CONFIG } from "@/config/app";
 import locale from "@/config/locale";
 import { SHOWN_CONFIG } from "@/config/shown";
 import type { Status } from "@/utils/types";
-import type { CodeChallengeResponseData } from "@/pages/api/code-challenge";
-import type { CodeChallengeResponse as VcCodeChallengeResponse } from "@/pages/api/vc/code-challenge";
+import type { CodeChallengeResponseData } from "@/pages/api/codeChallenge";
+import type { CodeChallengeResponse as VcCodeChallengeResponse } from "@/pages/api/vc/codeChallenge";
 import ProgressDialog from "components/common/ProgressDialog";
 import TopContainer from "./TopContainer";
 import BottomContainer from "./BottomContainer";
@@ -70,7 +70,7 @@ export default () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/code-challenge")
+    fetch("/api/codeChallenge")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -100,7 +100,7 @@ export default () => {
       update("success");
 
       // Step 2
-      const res2 = await fetch("/api/vc/code-challenge", {
+      const res2 = await fetch("/api/vc/codeChallenge", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ export default () => {
       update("success");
 
       // Step 3
-      const res3 = await fetch("/api/vc/ether", {
+      const res3 = await fetch("/api/vc/codeChallenge/sign", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

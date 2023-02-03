@@ -76,7 +76,7 @@ export default () => {
       update("success");
 
       // Step 4
-      const res4 = await fetch("/api/vc/revocation-status", {
+      const res4 = await fetch("/api/vc/revocationStatus", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

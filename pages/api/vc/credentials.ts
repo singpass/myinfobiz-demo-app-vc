@@ -41,7 +41,6 @@ export default async function handler(
   const method = constant.HTTP_METHOD.POST;
 
   // assemble headers for Person API
-
   const ath = base64URLEncode(sha256(accessToken));
   const dpopToken = await generateDpop(
     urlLink,
@@ -50,11 +49,13 @@ export default async function handler(
     method,
     sessionPopKeyPair
   );
-  const headers = new Headers();
-  headers.append("Cache-Control", "no-cache");
-  headers.append("dpop", dpopToken);
-  headers.append("Authorization", "Dpop " + accessToken);
-  headers.append("Content-Type", dpopToken);
+
+  const headers = {
+    "Cache-Control": "no-cache",
+    dpop: dpopToken,
+    Authorization: "Dpop " + accessToken,
+    "Content-Type": "application/json",
+  };
   const headersObj = JSON.parse(JSON.stringify(headers));
 
   //invoking https to do GET call
