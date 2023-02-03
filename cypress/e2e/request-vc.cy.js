@@ -1,11 +1,9 @@
 import locale from "@/config/locale";
 
-describe("Demo app requesting VC", () => {
+describe("Demo app requesting corporate verifiable credentials", () => {
   beforeEach(() => {
     cy.visit("localhost:3001");
-  });
-
-  it("Redirects to mockpass when request button is clicked and shows progress dialog on successful callback", () => {
+    cy.intercept("POST", "/api/vc/**").as("vcApiCalls");
     // request VC
     cy.get("button[data-testid='request-btn']").click();
     cy.origin("https://test.api.myinfo.gov.sg", () => {
@@ -17,6 +15,17 @@ describe("Demo app requesting VC", () => {
       cy.contains("button", "Cancel");
       cy.contains("button", "I Agree").click();
     });
+    cy.wait(5000);
+    switch (Cypress.currentTest.title) {
+      case "Should show progress dialog on successful callback":
+        break;
+      default: // wait for all the api calls
+        cy.wait("@vcApiCalls");
+        break;
+    }
+  });
+
+  it("Should show progress dialog on successful callback", () => {
     // should see progress dialog
     cy.get("p[data-testid='progress-dialog-title']").should(
       "have.text",
@@ -25,9 +34,16 @@ describe("Demo app requesting VC", () => {
     cy.get("div[data-testid='progress-dialog-title-container']", {
       timeout: 5000,
     })
-      .children('svg[data-testid="progress-dialog-loading-svg"]')
+      .children('svg[data-testid="loading-svg"]')
       .should("be.visible");
-    cy.wait(60_000); // should wait for all the api calls
+  });
+
+  it("Should show a verifiable credential after calling the relevant APIs", () => {
+    cy.wait("@vcApiCalls");
+    cy.get("p[data-testid='progress-dialog-title']").should(
+      "have.text",
+      locale.dialog.title.success
+    );
     cy.get("div[data-testid='progress-dialog-task-group']").should(
       "have.text",
       locale.request.step1.concat(
@@ -39,24 +55,45 @@ describe("Demo app requesting VC", () => {
     cy.get("div[data-testid='progress-dialog-title-container']", {
       timeout: 5000,
     })
-      .children('svg[data-testid="progress-dialog-success-svg"]')
+      .children('svg[data-testid="check-svg"]')
       .should("be.visible");
     cy.get("button[data-testid='progress-dialog-close-btn']").click();
     // close dialog
 
     // check if VC is displayed
-    cy.scrollTo(0, 500);
     cy.get("h3[data-testid='request-corporate-vc-response-title'").should(
       "have.text",
       locale.request.response.title
     );
-    cy.get("p[data-testid='request-corporate-vc-banner-text'").should(
+    cy.get("p[data-testid='container-status-banner-text'").should(
       "have.text",
       locale.request.response.successBanner
     );
-    cy.get("textarea[data-testid='request-corporate-vc-text-area'").should(
+    cy.get("textarea[data-testid='request-corporate-vc-textarea'").should(
       "contain",
       "credentialSubject" // one of the fields of the VC
     );
+  });
+
+  it("Should have copy to clipboard button that copies the verifiable credential upon clicking", () => {
+    cy.wait("@vcApiCalls");
+    cy.get("button[data-testid='progress-dialog-close-btn']").click();
+    // close dialog
+
+    // check if VC is displayed
+    cy.get("button[data-testid='request-corporate-vc-copy-btn']").as(
+      "copy-btn"
+    );
+    cy.get("@copy-btn").should("have.text", locale.button.copy);
+    cy.get("@copy-btn").click();
+    cy.assertValueCopiedToClipboard("credentialSubject");
+  });
+});
+
+Cypress.Commands.add("assertValueCopiedToClipboard", (value) => {
+  cy.window().then((win) => {
+    win.navigator.clipboard.readText().then((text) => {
+      expect(text).to.include(value);
+    });
   });
 });

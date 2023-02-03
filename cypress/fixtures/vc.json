@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://w3id.org/security/bbs/v1",
+    "https://www.w3.org/2018/credentials/v1",
+    "https://dev.issuer.myinfo.gov.sg/myinfobusiness/schema/corporatebasicdetails/v1",
+    "https://w3id.org/vc/status-list/2021/v1"
+  ],
+  "id": "https://dev.issuer.myinfo.gov.sg/myinfobusiness/credentials/639053a1-b3c2-4dfe-8054-10d9f74fea4c",
+  "type": ["VerifiableCredential"],
+  "issuer": "did:web:dev.issuer.myinfo.gov.sg:myinfobusiness",
+  "credentialSubject": {
+    "uen": "198102460H",
+    "companyname": "UPUZTHSSSZUSZSUUSZ YZXH",
+    "type": ["CorporateBasicDetails"],
+    "id": "0x2e9adb62e198b995522e76d8757db3d86ba8f1e1"
+  },
+  "expirationDate": "2023-11-01T06:45:15Z",
+  "credentialStatus": {
+    "id": "https://dev.issuer.myinfo.gov.sg/myinfobusiness/status/1#32",
+    "type": "StatusList2021Entry",
+    "statusListIndex": 32,
+    "statusListCredential": "https://dev.issuer.myinfo.gov.sg/myinfobusiness/status/1/32"
+  },
+  "issuanceDate": "2023-01-31T07:38:33Z",
+  "proof": {
+    "type": "BbsBlsSignature2020",
+    "created": "2023-01-31T07:38:33Z",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "q++HRSNYKtV4g6KcJ8nsJK3/8akFmeFOvFAZvW3OG6uXJsXYlNyHPqWR9A++Cde9IEJ/sfJIGpWm0tPDyq3uzBZSScrna8GeAftGwejla0Zxvr1PdS09uAXeNJJu7i82c5e+Bt0jWVHB0NOYlH98RA==",
+    "verificationMethod": "did:web:dev.issuer.myinfo.gov.sg:myinfobusiness#a576698e-8afd-40fa-846b-6a281127fee6"
+  }
+}

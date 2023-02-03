@@ -68,7 +68,7 @@ export default ({
         copyText={textareaValue}
         status="success"
         readOnly
-        data-testid="request-corporate-vc-text-area"
+        data-testid="request-corporate-vc-textarea"
       />
 
       <Footer>{footer}</Footer>
