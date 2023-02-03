@@ -5,6 +5,7 @@ export const Wrapper = styled.svg`
   height: auto;
   width: auto;
   display: block;
+  flex: none;
 `;
 
 export default () => (

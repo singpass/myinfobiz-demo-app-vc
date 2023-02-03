@@ -49,6 +49,7 @@ const Text = styled.p(
   font-size: var(--font-size);
   color: #222222;
   opacity: 1;
+  flex-shrink: 1;
 
   ${applyStyleIf(
     $state === "inactive",
