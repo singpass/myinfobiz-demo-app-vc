@@ -9,6 +9,7 @@
     "lint": "next lint",
     "test": "next build && next start -p 3001 & cypress run",
     "test:e2e": "cypress run",
+    "test:e2e:chrome": "cypress run -b chrome --headed",
     "test:e2e:open": "cypress open",
     "test:unit": "jest --coverage"
   },
