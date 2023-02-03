@@ -114,7 +114,9 @@ export default () => {
   return (
     <Wrapper>
       <div>
-        <h3>{locale.verify.title}</h3>
+        <h3 data-testid="verify-corporate-vc-response-title">
+          {locale.verify.title}
+        </h3>
         <p>{locale.verify.subtitle}</p>
       </div>
 
@@ -137,23 +139,32 @@ export default () => {
           value={textAreaValue}
           readOnly={resStatus !== undefined}
           onChange={(e) => setTextAreaValue(e.target.value)}
+          data-testid="verify-corporate-vc-textarea"
         />
       </Content>
 
       {resStatus === undefined && (
-        <Button.Classic disabled={!textAreaValue} onClick={handleSubmit}>
+        <Button.Classic
+          disabled={!textAreaValue}
+          onClick={handleSubmit}
+          data-testid="verify-btn"
+        >
           {locale.button.verify}
         </Button.Classic>
       )}
 
       {resStatus !== undefined && (
-        <Button.Classic disabled={!textAreaValue} onClick={handleReset}>
+        <Button.Classic
+          disabled={!textAreaValue}
+          onClick={handleReset}
+          data-testid="verify-reset-btn"
+        >
           {locale.button.resetVerify}
         </Button.Classic>
       )}
 
       <ProgressDialog
-        loadingText={locale.dialog.title.request}
+        loadingText={locale.dialog.title.verify}
         tasks={{
           titles: [
             locale.verify.step1,
