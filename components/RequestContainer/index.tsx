@@ -8,6 +8,7 @@ import { SHOWN_CONFIG } from "@/config/shown";
 import type { Status } from "@/utils/types";
 import type { CodeChallengeResponseData } from "@/pages/api/codeChallenge";
 import type { CodeChallengeResponse as VcCodeChallengeResponse } from "@/pages/api/vc/codeChallenge";
+import type { SignedResponse as SignedCodeChallengeResponse } from "@/pages/api/vc/codeChallenge/sign";
 import ProgressDialog from "components/common/ProgressDialog";
 import TopContainer from "./TopContainer";
 import BottomContainer from "./BottomContainer";
@@ -113,8 +114,8 @@ export default () => {
       if (!res2.ok) {
         throw new Error(locale.request.response.failed.codeChallenge);
       }
-      const response: VcCodeChallengeResponse = await res2.json();
-      const codeChallenge = response.codeChallenge;
+      const codeChallengeRes: VcCodeChallengeResponse = await res2.json();
+      const codeChallenge = codeChallengeRes.codeChallenge;
       update("success");
 
       // Step 3
@@ -130,7 +131,9 @@ export default () => {
       if (!res3.ok) {
         throw new Error(locale.request.response.failed.verifyCodeChallenge);
       }
-      const signedCodeChallenge = await res3.json();
+      const signedCodeChallengeRes: SignedCodeChallengeResponse =
+        await res3.json();
+      const signedCodeChallenge = signedCodeChallengeRes.signedCodeChallenge;
       update("success");
 
       // Step 4

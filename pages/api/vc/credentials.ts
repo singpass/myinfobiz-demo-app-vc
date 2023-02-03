@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { default as constant } from "@/lib/common/constant";
 import {
+  decryptJWEWithKey,
   verifyJWS,
   generateDpop,
   base64URLEncode,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/securityHelper";
 import { MYINFO_CONNECTOR_CONFIG } from "@/config/myinfo";
 import { getHttpsResponse } from "@/lib/requestHandler";
+import { MyInfoConnector } from "@/lib/myinfo-connector";
 
 type VerifiableCredentialsResponse = {
   credentialData?: any;
@@ -68,12 +70,30 @@ export default async function handler(
   };
   const bodyStr = JSON.parse(JSON.stringify(body));
 
-  const credentialData = await getHttpsResponse(
+  const credentialRes = await getHttpsResponse(
     method,
     urlLink,
     headersObj,
     bodyStr
   );
+  console.log("credentialRes", credentialRes);
+  if (!credentialRes.data) {
+    res.status(500).json({ error: constant.ERROR_PERSON_DATA_NOT_FOUND });
+  }
+  let decryptedResponse = await decryptJWEWithKey(
+    credentialRes.data,
+    MyInfoConnector.CLIENT_PRIVATE_ENCRYPTION_KEY
+  );
+  console.log("decryptedResponse", decryptedResponse);
+
+  if (!decryptedResponse) {
+    res.status(500).json({ error: constant.ERROR_INVALID_DATA_OR_SIGNATURE });
+  }
+  const credentialData = await verifyJWS(
+    decryptedResponse,
+    MYINFO_CONNECTOR_CONFIG.MYINFO_JWKS_URL
+  );
   console.log("credentialData", credentialData);
+  // successful. return data back to frontend
   res.status(200).json({ credentialData: credentialData });
 }

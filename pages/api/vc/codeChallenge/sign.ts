@@ -4,14 +4,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { MYINFO_CONNECTOR_CONFIG } from "@/config/myinfo";
 import MyInfoVcVerifier from "@/lib/myinfo-vc-verifier";
 
-type EtherSignedResponse = {
+export type SignedResponse = {
   signedCodeChallenge?: string;
   error?: string;
 };
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<EtherSignedResponse>
+  res: NextApiResponse<SignedResponse>
 ) {
   if (req.method !== "POST") {
     res.status(405).send({
