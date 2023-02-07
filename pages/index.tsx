@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 import locale from "config/locale";
 import type { Mode } from "@/utils/types";
@@ -30,6 +31,7 @@ const Section = styled.div`
   margin: 0 auto;
 
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 40px;
 `;
@@ -40,20 +42,35 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Title = styled.div`
+const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: left;
+  margin-top: 24px;
+  margin-bottom: 76px;
 
   & > * {
-    text-align: center;
+    text-align: left;
   }
+`;
+
+const Title = styled.div`
+  font-size: 2.5rem;
+  font-weight: 800;
+  max-width: 560px;
+  margin-bottom: 16px;
+`;
+
+const Subtitle = styled.div`
+  font-size: 1.2rem;
+  font-weight: 100;
+  max-width: 420px;
 `;
 
 const TabGroup = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
 `;
 
 export default () => {
@@ -61,14 +78,19 @@ export default () => {
   return (
     <Wrapper>
       <Header />
-
       <OuterSection>
         <Section>
-          <Title>
-            <h1>{locale.title}</h1>
-            <p>{locale.subtitle}</p>
-          </Title>
-
+          <Image
+            src={"/Graphics.svg"}
+            width={860}
+            height={540}
+            alt="background"
+            style={{ position: "absolute", top: -10, right: 0, zIndex: 0 }}
+          />
+          <TitleContainer>
+            <Title>{locale.title}</Title>
+            <Subtitle>{locale.subtitle}</Subtitle>
+          </TitleContainer>
           <Container>
             <TabGroup>
               <Button.Mode

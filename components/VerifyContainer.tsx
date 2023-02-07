@@ -14,7 +14,8 @@ const Wrapper = styled.div`
   z-index: 5;
 
   background: white;
-  border-radius: 10px;
+  border-radius: 0px 10px 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 40px;
 
   display: flex;
