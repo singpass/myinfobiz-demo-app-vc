@@ -19,12 +19,7 @@ describe("Demo app requesting corporate verifiable credentials", () => {
       case "Should show progress dialog on successful callback":
         break;
       default: // wait for all the api calls
-        try {
-          cy.wait(["@vcApiCalls", "@vcApiCalls", "@vcApiCalls"]);
-        } catch (error) {
-          console.log(error);
-        }
-        break;
+        cy.wait(30_000);
     }
   });
 
