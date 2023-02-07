@@ -12,6 +12,7 @@ import type { SignedResponse as SignedCodeChallengeResponse } from "@/pages/api/
 import ProgressDialog from "components/common/ProgressDialog";
 import TopContainer from "./TopContainer";
 import BottomContainer from "./BottomContainer";
+import { VerifiableCredentialsResponse } from "@/pages/api/vc/credentials";
 
 const Wrapper = styled.div`
   position: relative;
@@ -152,7 +153,8 @@ export default () => {
       if (!res4.ok) {
         throw new Error(locale.request.response.failed.getVc);
       }
-      const vc = await res4.json();
+      const resp: VerifiableCredentialsResponse = await res4.json();
+      const vc = resp.credentialData;
       update("success");
       setResValue(JSON.stringify(vc, null, 4));
     } catch (e: unknown) {

@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - dev
       - release/*
       - feat/*
       - fix/*
@@ -81,7 +82,7 @@ jobs:
         with:
           browser: chrome
           headless: true
-          command: npx cypress run
+          command: npm run test:e2e
           build: npm run build
           start: npm run start
           wait-on: "http://localhost:3001"
@@ -106,7 +107,7 @@ jobs:
         with:
           browser: chrome
           headless: false
-          command: npx cypress run
+          command: npm run test:e2e:chrome
           build: npm run build
           start: npm run start
           wait-on: "http://localhost:3001"

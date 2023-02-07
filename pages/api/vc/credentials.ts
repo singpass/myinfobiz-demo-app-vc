@@ -13,7 +13,7 @@ import { MYINFO_CONNECTOR_CONFIG } from "@/config/myinfo";
 import { getHttpsResponse } from "@/lib/requestHandler";
 import { MyInfoConnector } from "@/lib/myinfo-connector";
 
-type VerifiableCredentialsResponse = {
+export type VerifiableCredentialsResponse = {
   credentialData?: any;
   error?: string;
 };

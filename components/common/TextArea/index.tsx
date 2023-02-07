@@ -100,7 +100,10 @@ export default ({
       <TextArea ref={shadow} {...props} $shadow />
 
       {copyable && (
-        <Button onClick={handleCopy}>
+        <Button
+          onClick={handleCopy}
+          data-testid="request-corporate-vc-copy-btn"
+        >
           {locale.button.copy}
           {checkVisible && <CheckCircle />}
         </Button>

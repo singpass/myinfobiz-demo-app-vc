@@ -141,14 +141,10 @@ export default ({
       <Wrapper>
         <TitleContainer data-testid="progress-dialog-title-container">
           {progressState === "in-progress" && (
-            <Loading data-testid="progress-dialog-loading-svg" />
+            <Loading data-testid="loading-svg" />
           )}
-          {progressState === "success" && (
-            <Check data-testid="progress-dialog-success-svg" />
-          )}
-          {progressState === "failed" && (
-            <Cross data-testid="progress-dialog-failed-svg" />
-          )}
+          {progressState === "success" && <Check data-testid="check-svg" />}
+          {progressState === "failed" && <Cross data-testid="cross-svg" />}
 
           <p data-testid="progress-dialog-title">
             {progressState === "success" && locale.dialog.title.success}
