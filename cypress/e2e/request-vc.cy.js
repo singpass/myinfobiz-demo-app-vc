@@ -15,12 +15,11 @@ describe("Demo app requesting corporate verifiable credentials", () => {
       cy.contains("button", "Cancel");
       cy.contains("button", "I Agree").click();
     });
-    cy.wait(5000);
     switch (Cypress.currentTest.title) {
       case "Should show progress dialog on successful callback":
         break;
       default: // wait for all the api calls
-        cy.wait("@vcApiCalls");
+        cy.wait(["@vcApiCalls", "@vcApiCalls", "@vcApiCalls"]);
         break;
     }
   });
@@ -39,7 +38,6 @@ describe("Demo app requesting corporate verifiable credentials", () => {
   });
 
   it("Should show a verifiable credential after calling the relevant APIs", () => {
-    cy.wait("@vcApiCalls");
     cy.get("p[data-testid='progress-dialog-title']").should(
       "have.text",
       locale.dialog.title.success
@@ -76,7 +74,6 @@ describe("Demo app requesting corporate verifiable credentials", () => {
   });
 
   it("Should have copy to clipboard button that copies the verifiable credential upon clicking", () => {
-    cy.wait("@vcApiCalls");
     cy.get("button[data-testid='progress-dialog-close-btn']").click();
     // close dialog
 
