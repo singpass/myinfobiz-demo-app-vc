@@ -31,6 +31,7 @@ const TextArea = styled.textarea(
 
   font-size: 16px;
   line-height: 18px;
+  font-family: "Roboto Mono", monospace;
   font-weight: 500;
 
   ${applyStyleIf(

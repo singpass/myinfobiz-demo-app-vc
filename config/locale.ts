@@ -1,6 +1,6 @@
 export default {
   header: "A Singapore Government Agency Website",
-  title: "Verifiable Credential Demo",
+  title: "Verifiable Credential Sample App",
   subtitle:
     "Select request or verify to test out Corporate Verifiable user flow.",
   button: {
