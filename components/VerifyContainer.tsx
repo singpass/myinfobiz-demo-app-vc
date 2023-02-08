@@ -144,25 +144,13 @@ export default () => {
         />
       </Content>
 
-      {resStatus === undefined && (
-        <Button.Classic
-          disabled={!textAreaValue}
-          onClick={handleSubmit}
-          data-testid="verify-btn"
-        >
-          {locale.button.verify}
-        </Button.Classic>
-      )}
-
-      {resStatus !== undefined && (
-        <Button.Classic
-          disabled={!textAreaValue}
-          onClick={handleReset}
-          data-testid="verify-reset-btn"
-        >
-          {locale.button.resetVerify}
-        </Button.Classic>
-      )}
+      <Button.Classic
+        disabled={!textAreaValue}
+        onClick={handleSubmit}
+        data-testid="verify-btn"
+      >
+        {locale.button.verify}
+      </Button.Classic>
 
       <ProgressDialog
         loadingText={locale.dialog.title.verify}
