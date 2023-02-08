@@ -5,6 +5,5 @@ export const SHOWN_CONFIG = {
   DEMO_APP_PURPOSE_ID: process.env.NEXT_PUBLIC_DEMO_APP_PURPOSE_ID,
   DEMO_APP_SCOPES: process.env.NEXT_PUBLIC_DEMO_APP_SCOPES,
   DEMO_APP_CODE_CHALLENGE_METHOD: "S256",
-  MYINFO_API_AUTHORIZE: `https://${process.env.NEXT_PUBLIC_SINGPASS_ENV.toLowerCase()}api.myinfo.gov.sg/biz/v3/authorize`,
   GRANT_TYPE: "authorization_code",
 };
