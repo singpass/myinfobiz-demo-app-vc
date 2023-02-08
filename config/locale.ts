@@ -6,7 +6,7 @@ export default {
   button: {
     request: "Request",
     verify: "Verify",
-    resetVerify: "Reset Verify",
+    resetVerify: "Reset",
     ok: "Ok",
     copy: "Copy to clipboard",
     loading: "Loading...",

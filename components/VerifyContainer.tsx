@@ -36,6 +36,16 @@ const Content = styled.div`
   gap: 10px;
 `;
 
+const Footer = styled.div`
+  display: flex;
+  align-items: end;
+  gap: 10px;
+
+  p {
+    font-size: 14px;
+  }
+`;
+
 export default () => {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [resStatus, setResStatus] = useState<Status | undefined>();
@@ -144,13 +154,26 @@ export default () => {
         />
       </Content>
 
-      <Button.Classic
-        disabled={!textAreaValue}
-        onClick={handleSubmit}
-        data-testid="verify-btn"
-      >
-        {locale.button.verify}
-      </Button.Classic>
+      <Footer>
+        <Button.Classic
+          disabled={!textAreaValue}
+          onClick={handleSubmit}
+          data-testid="verify-btn"
+        >
+          {locale.button.verify}
+        </Button.Classic>
+        <Button.Classic
+          onClick={handleReset}
+          disabled={!textAreaValue}
+          style={{
+            backgroundColor: "#d4dfe8",
+            color: "#444444",
+          }}
+          data-testid="reset-btn"
+        >
+          {locale.button.resetVerify}
+        </Button.Classic>
+      </Footer>
 
       <ProgressDialog
         loadingText={locale.dialog.title.verify}
