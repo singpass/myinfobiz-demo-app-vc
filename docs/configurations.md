@@ -15,6 +15,8 @@ Environment variables loads during build time and any unused environment variabl
 ### Reference
 
 > _\***Disclaimer:** all ethereum wallet addresses and private keys listed as examples are publicly available and should NOT be used for any other purposes other than for the demonstration of this app._
+>
+> _**Note:** The following example Ethereum Wallet Address and Private Keys do not match. Please generate your own Ethereum Wallet Address and Private keys if you wish to use this app for testing. You may refer to the [Ethereum Guide](ethereum.md) for more details on how to generate one._
 
 | Environment Variables               | Description                                                                                                                                                              |
 | :---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
