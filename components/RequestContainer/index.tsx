@@ -190,7 +190,6 @@ export default () => {
       <TopContainer
         textareaValue={configPlainFormat}
         isLoading={isLoading}
-        isCodeChallengeReceived={Boolean(data.codeChallenge)}
         onSubmit={handleSubmit}
       />
 

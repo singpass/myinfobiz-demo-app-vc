@@ -6,7 +6,7 @@ export default {
   button: {
     request: "Request",
     verify: "Verify",
-    resetVerify: "Reset Verify",
+    resetVerify: "Reset",
     ok: "Ok",
     copy: "Copy to clipboard",
     loading: "Loading...",
@@ -14,6 +14,7 @@ export default {
   request: {
     tabButton: "Request for a Corporate VC",
     title: "Corporate Verifiable Credential Configuration",
+    subtitle: "Below configurations can be found in file directory `/config`",
     notice: "You will be directed to Corppass to retrieve your Corporate data.",
     step1: "Generating unique Tokens",
     step2: "Getting your Code Challenge with your Ethereum Address",
