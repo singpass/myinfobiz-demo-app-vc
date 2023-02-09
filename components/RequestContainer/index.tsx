@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { APP_CONFIG } from "@/config/app";
 import locale from "@/config/locale";
 import { SHOWN_CONFIG } from "@/config/shown";
-import { Status } from "@/utils/types";
+import { Mode, Status } from "@/utils/types";
 import type { CodeChallengeResponseData } from "@/pages/api/codeChallenge";
 import type { CodeChallengeResponse as VcCodeChallengeResponse } from "@/pages/api/vc/codeChallenge";
 import type { SignedResponse as SignedCodeChallengeResponse } from "@/pages/api/vc/codeChallenge/sign";
@@ -38,7 +38,7 @@ const Divider = styled.div`
   background: #5b5b5b;
 `;
 
-export default () => {
+export default ({ setMode }: { setMode: Dispatch<SetStateAction<Mode>> }) => {
   /**
    * Hooks
    */
@@ -178,8 +178,9 @@ export default () => {
     window.location.replace(url.toString());
   };
 
-  const handleReset = () => {
+  const handleSelectVerify = () => {
     setResValue("");
+    setMode(Mode.VERIFY);
   };
 
   /**
@@ -196,7 +197,10 @@ export default () => {
       {resValue && <Divider id="divider" />}
 
       {resValue && (
-        <BottomContainer textareaValue={resValue} onReset={handleReset} />
+        <BottomContainer
+          textareaValue={resValue}
+          onSelectVerify={handleSelectVerify}
+        />
       )}
 
       <ProgressDialog

@@ -111,7 +111,7 @@ export default () => {
               </Button.Mode>
             </TabGroup>
 
-            {mode === Mode.REQUEST && <RequestContainer />}
+            {mode === Mode.REQUEST && <RequestContainer setMode={setMode} />}
             {mode === Mode.VERIFY && <VerifyContainer />}
           </Container>
         </Section>

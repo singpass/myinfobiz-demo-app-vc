@@ -29,10 +29,10 @@ const Footer = styled.div`
 
 export default ({
   textareaValue,
-  onReset,
+  onSelectVerify,
 }: {
   textareaValue: string;
-  onReset: () => void;
+  onSelectVerify: () => void;
 }) => {
   /**
    * Not hook
@@ -44,7 +44,7 @@ export default ({
   footer.splice(
     1,
     0,
-    <span key={footer.length} onClick={onReset}>
+    <span key={footer.length} onClick={onSelectVerify}>
       {locale.request.response.link}
     </span>
   );
