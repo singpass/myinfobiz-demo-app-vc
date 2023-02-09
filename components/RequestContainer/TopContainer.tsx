@@ -3,7 +3,6 @@ import styled from "styled-components";
 import locale from "@/config/locale";
 import Button from "components/common/Button";
 import TextArea from "components/common/TextArea";
-import StatusBanner from "components/common/StatusBanner";
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,7 +12,7 @@ const Wrapper = styled.div`
 
 const Footer = styled.div`
   display: flex;
-  align-items: end;
+  align-items: center;
   gap: 10px;
 
   p {

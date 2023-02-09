@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import locale from "@/config/locale";
 import { applyStyleIf } from "@/utils";
-import type { Task, ProgressState, TaskState } from "./types";
-import type { Status } from "@/utils/types";
+import { Task, ProgressState } from "./types";
+import { Status } from "@/utils/types";
 import Loading, { Wrapper as $Loading } from "components/svg/Loading";
 import Check, { Wrapper as $Check } from "components/svg/Check";
 import Cross, { Wrapper as $Cross } from "components/svg/Cross";
@@ -90,32 +90,33 @@ export default ({
   /**
    * Hooks
    */
-  const [progressState, setProgressState] =
-    useState<ProgressState>("in-progress");
-  const [taskStates, setTaskStates] = useState<TaskState[]>([]);
+  const [progressState, setProgressState] = useState<ProgressState>(
+    ProgressState.PROGRESS
+  );
+  const [taskStates, setTaskStates] = useState<ProgressState[]>([]);
   const [errMessage, setErrMessage] = useState("");
 
   useEffect(() => {
     if (!visible) return;
 
-    setProgressState(() => "in-progress");
+    setProgressState(() => ProgressState.PROGRESS);
     setErrMessage(() => "");
 
-    const taskStates: TaskState[] = tasks.titles.map(() => "inactive");
-    taskStates[0] = "in-progress";
+    const taskStates = tasks.titles.map(() => ProgressState.INACTIVE);
+    taskStates[0] = ProgressState.PROGRESS;
     setTaskStates(() => taskStates);
 
     let index = 0;
 
     const update = (s: Status) => {
-      if (s === "success") {
-        taskStates[index++] = "success";
+      if (s === Status.SUCCESS) {
+        taskStates[index++] = ProgressState.SUCCESS;
 
         if (taskStates[index]) {
-          taskStates[index] = "in-progress";
+          taskStates[index] = ProgressState.PROGRESS;
         }
       } else {
-        taskStates[index] = "failed";
+        taskStates[index] = ProgressState.FAILED;
       }
 
       setTaskStates(() => [...taskStates]);
@@ -124,10 +125,10 @@ export default ({
     tasks
       .action(update)
       .then(() => {
-        setProgressState(() => "success");
+        setProgressState(() => ProgressState.SUCCESS);
       })
       .catch((e: string) => {
-        setProgressState(() => "failed");
+        setProgressState(() => ProgressState.FAILED);
         setErrMessage(e);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,17 +141,22 @@ export default ({
     <Mask $visible={visible} data-testid="progress-dialog">
       <Wrapper>
         <TitleContainer data-testid="progress-dialog-title-container">
-          {progressState === "in-progress" && (
+          {progressState === ProgressState.PROGRESS && (
             <Loading data-testid="loading-svg" />
           )}
-          {progressState === "success" && <Check data-testid="check-svg" />}
-          {progressState === "failed" && <Cross data-testid="cross-svg" />}
+          {progressState === ProgressState.SUCCESS && (
+            <Check data-testid="check-svg" />
+          )}
+          {progressState === ProgressState.FAILED && (
+            <Cross data-testid="cross-svg" />
+          )}
 
           <p data-testid="progress-dialog-title">
-            {progressState === "success" && locale.dialog.title.success}
-            {progressState === "failed" &&
+            {progressState === ProgressState.SUCCESS &&
+              locale.dialog.title.success}
+            {progressState === ProgressState.FAILED &&
               `${locale.dialog.title.failed}\n${errMessage}`}
-            {progressState === "in-progress" && loadingText}
+            {progressState === ProgressState.PROGRESS && loadingText}
           </p>
         </TitleContainer>
 
@@ -162,7 +168,8 @@ export default ({
           ))}
         </TaskGroup>
 
-        {(progressState === "success" || progressState === "failed") && (
+        {(progressState === ProgressState.SUCCESS ||
+          progressState === ProgressState.FAILED) && (
           <Button
             onClick={() => setVisible(false)}
             data-testid="progress-dialog-close-btn"

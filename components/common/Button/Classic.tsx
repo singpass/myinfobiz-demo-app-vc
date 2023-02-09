@@ -1,17 +1,16 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.button`
+  --primary-color: #4c7aae;
+
   padding: 10px 24px;
   background: #4c7aae;
   color: white;
-  border: 0;
-  outline: 0;
   border-radius: 8px;
+  border: 1px solid var(--primary-color);
   cursor: pointer;
 
   font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.2px;
 
   &:disabled {
     opacity: 0.4;

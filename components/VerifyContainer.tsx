@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import locale from "@/config/locale";
 import { mockPromise } from "@/utils";
-import type { Status } from "@/utils/types";
+import { Status } from "@/utils/types";
 import Button from "components/common/Button";
 import TextArea from "components/common/TextArea";
 import ProgressDialog from "components/common/ProgressDialog";
@@ -36,6 +36,16 @@ const Content = styled.div`
   gap: 10px;
 `;
 
+const Footer = styled.div`
+  display: flex;
+  align-items: end;
+  gap: 10px;
+
+  p {
+    font-size: 14px;
+  }
+`;
+
 export default () => {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [resStatus, setResStatus] = useState<Status | undefined>();
@@ -49,7 +59,7 @@ export default () => {
     try {
       // Step 1
       await mockPromise({ ms: 100, resolve: true, response: "" });
-      update("success");
+      update(Status.SUCCESS);
 
       // Step 2
       const res2 = await fetch("/api/vc/verify", {
@@ -70,11 +80,11 @@ export default () => {
           verifyResponse.verificationResult.error.errors[0].message
         );
       }
-      update("success");
+      update(Status.SUCCESS);
 
       // Step 3
       await mockPromise({ ms: 100, resolve: true, response: "" });
-      update("success");
+      update(Status.SUCCESS);
 
       // Step 4
       const res4 = await fetch("/api/vc/revocationStatus", {
@@ -93,12 +103,12 @@ export default () => {
       if (revokeStatusResponse.revokeStatus) {
         throw new Error("Failed to verify revocation status");
       }
-      update("success");
+      update(Status.SUCCESS);
 
-      setResStatus("success");
+      setResStatus(Status.SUCCESS);
     } catch (e: unknown) {
-      update("failed");
-      setResStatus("failed");
+      update(Status.FAILED);
+      setResStatus(Status.FAILED);
       throw e;
     }
   };
@@ -122,14 +132,14 @@ export default () => {
       </div>
 
       <Content>
-        {resStatus === "success" && (
-          <StatusBanner status="success">
+        {resStatus === Status.SUCCESS && (
+          <StatusBanner status={Status.SUCCESS}>
             {locale.verify.response.successBanner}
           </StatusBanner>
         )}
 
-        {resStatus === "failed" && (
-          <StatusBanner status="failed">
+        {resStatus === Status.FAILED && (
+          <StatusBanner status={Status.FAILED}>
             {locale.verify.response.failedBanner}
           </StatusBanner>
         )}
@@ -138,19 +148,32 @@ export default () => {
           status={resStatus || undefined}
           rows={8}
           value={textAreaValue}
-          readOnly={resStatus !== undefined}
+          readOnly={dialogVisible}
           onChange={(e) => setTextAreaValue(e.target.value)}
           data-testid="verify-corporate-vc-textarea"
         />
       </Content>
 
-      <Button.Classic
-        disabled={!textAreaValue}
-        onClick={handleSubmit}
-        data-testid="verify-btn"
-      >
-        {locale.button.verify}
-      </Button.Classic>
+      <Footer>
+        <Button.Classic
+          disabled={!textAreaValue}
+          onClick={handleSubmit}
+          data-testid="verify-btn"
+        >
+          {locale.button.verify}
+        </Button.Classic>
+        <Button.Secondary
+          onClick={handleReset}
+          disabled={!textAreaValue}
+          style={{
+            visibility: resStatus !== undefined ? "visible" : "hidden",
+            padding: "10px 24px",
+          }}
+          data-testid="reset-btn"
+        >
+          {locale.button.resetVerify}
+        </Button.Secondary>
+      </Footer>
 
       <ProgressDialog
         loadingText={locale.dialog.title.verify}

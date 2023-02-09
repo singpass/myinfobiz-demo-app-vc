@@ -3,6 +3,7 @@ import locale from "@/config/locale";
 
 import TextArea, { Wrapper as $TextArea } from "components/common/TextArea";
 import StatusBanner from "components/common/StatusBanner";
+import { Status } from "@/utils/types";
 
 const Wrapper = styled.div`
   h3 {
@@ -57,7 +58,7 @@ export default ({
         {locale.request.response.title}
       </h3>
 
-      <StatusBanner status="success">
+      <StatusBanner status={Status.SUCCESS}>
         {locale.request.response.successBanner}
       </StatusBanner>
 
@@ -66,7 +67,7 @@ export default ({
         copyable
         value={textareaValue}
         copyText={textareaValue}
-        status="success"
+        status={Status.SUCCESS}
         readOnly
         data-testid="request-corporate-vc-textarea"
       />

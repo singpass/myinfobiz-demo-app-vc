@@ -20,14 +20,14 @@ const Wrapper = styled.div(
   svg { height: 20px }
   
   ${applyStyleIf(
-    $status === "success",
+    $status === Status.SUCCESS,
     `
     background: #D2ECC0;
   `
   )}
 
   ${applyStyleIf(
-    $status === "failed",
+    $status === Status.FAILED,
     `
     background:#FFCFCF;
   `
@@ -37,7 +37,7 @@ const Wrapper = styled.div(
 
 export default ({ children, status }: { children: string; status: Status }) => (
   <Wrapper $status={status}>
-    {status === "success" && <CheckCircle />}
+    {status === Status.SUCCESS && <CheckCircle />}
     {status === "failed" && <CrossCircle />}
 
     <p data-testid="container-status-banner-text">{children}</p>

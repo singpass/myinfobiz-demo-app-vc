@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import type { TaskState } from "../types";
+import { ProgressState } from "../types";
 import { applyStyleIf } from "@/utils";
 import CheckCircle from "components/svg/CheckCircle";
 import CrossCircle from "components/svg/CrossCircle";
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 `;
 
 const Number = styled.div(
-  ({ $state }: { $state: TaskState }) => `
+  ({ $state }: { $state: ProgressState }) => `
   border-radius: 50%;
   aspect-ratio: 1/1;
   height: 25px;
@@ -36,7 +36,7 @@ const Number = styled.div(
   font-size: var(--font-size);
 
   ${applyStyleIf(
-    $state === "inactive",
+    $state === ProgressState.INACTIVE,
     `
     opacity: 0.4
   `
@@ -45,28 +45,28 @@ const Number = styled.div(
 );
 
 const Text = styled.p(
-  ({ $state }: { $state: TaskState }) => `
+  ({ $state }: { $state: ProgressState }) => `
   font-size: var(--font-size);
   color: #222222;
   opacity: 1;
   flex-shrink: 1;
 
   ${applyStyleIf(
-    $state === "inactive",
+    $state === ProgressState.INACTIVE,
     `
     opacity: 0.4;
   `
   )}
 
   ${applyStyleIf(
-    $state === "success",
+    $state === ProgressState.SUCCESS,
     `
     color: #438F0E;
   `
   )}
 
   ${applyStyleIf(
-    $state === "failed",
+    $state === ProgressState.FAILED,
     `
     color: #8F0E0E;
   `
@@ -81,16 +81,16 @@ export default ({
 }: {
   children: string;
   order: string | number;
-  state: TaskState;
+  state: ProgressState;
 }) => {
   const mapStateJSX = () => {
     switch (state) {
-      case "in-progress":
-      case "inactive":
+      case ProgressState.PROGRESS:
+      case ProgressState.INACTIVE:
         return <Number $state={state}>{order}</Number>;
-      case "success":
+      case ProgressState.SUCCESS:
         return <CheckCircle />;
-      case "failed":
+      case ProgressState.FAILED:
         return <CrossCircle />;
     }
   };
