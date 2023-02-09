@@ -193,7 +193,7 @@ export default () => {
         onSubmit={handleSubmit}
       />
 
-      {resValue && <Divider />}
+      {resValue && <Divider id="divider" />}
 
       {resValue && (
         <BottomContainer textareaValue={resValue} onReset={handleReset} />
@@ -211,7 +211,12 @@ export default () => {
           action: handleAction,
         }}
         visible={dialogVisible}
-        setVisible={setDialogVisible}
+        onClickOk={() => {
+          setDialogVisible(false);
+          document
+            .querySelector("#divider")
+            ?.scrollIntoView({ behavior: "smooth" });
+        }}
       />
     </Wrapper>
   );

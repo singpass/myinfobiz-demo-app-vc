@@ -80,12 +80,12 @@ export default ({
   loadingText,
   tasks,
   visible,
-  setVisible,
+  onClickOk,
 }: {
   loadingText: string;
   tasks: Task;
   visible: boolean;
-  setVisible: (b: boolean) => void;
+  onClickOk: () => void;
 }) => {
   /**
    * Hooks
@@ -129,6 +129,7 @@ export default ({
       })
       .catch((e: string) => {
         setProgressState(() => ProgressState.FAILED);
+        if (e === "") e = locale.dialog.defaultErrMsg;
         setErrMessage(e);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,10 +171,7 @@ export default ({
 
         {(progressState === ProgressState.SUCCESS ||
           progressState === ProgressState.FAILED) && (
-          <Button
-            onClick={() => setVisible(false)}
-            data-testid="progress-dialog-close-btn"
-          />
+          <Button onClick={onClickOk} data-testid="progress-dialog-close-btn" />
         )}
       </Wrapper>
     </Mask>

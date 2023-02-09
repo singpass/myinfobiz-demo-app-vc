@@ -57,6 +57,7 @@ export default {
       success: "Successful",
       failed: "Unsuccessful",
     },
+    defaultErrMsg: "Please try again later.",
   },
   copySuccess: "Text copied",
 };

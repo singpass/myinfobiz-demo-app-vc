@@ -187,7 +187,7 @@ export default () => {
           action: handleAction,
         }}
         visible={dialogVisible}
-        setVisible={setDialogVisible}
+        onClickOk={() => setDialogVisible(false)}
       />
     </Wrapper>
   );
