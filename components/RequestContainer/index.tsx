@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { APP_CONFIG } from "@/config/app";
 import locale from "@/config/locale";
 import { SHOWN_CONFIG } from "@/config/shown";
-import type { Status } from "@/utils/types";
+import { Mode, Status } from "@/utils/types";
 import type { CodeChallengeResponseData } from "@/pages/api/codeChallenge";
 import type { CodeChallengeResponse as VcCodeChallengeResponse } from "@/pages/api/vc/codeChallenge";
 import type { SignedResponse as SignedCodeChallengeResponse } from "@/pages/api/vc/codeChallenge/sign";
@@ -38,7 +38,7 @@ const Divider = styled.div`
   background: #5b5b5b;
 `;
 
-export default () => {
+export default ({ setMode }: { setMode: Dispatch<SetStateAction<Mode>> }) => {
   /**
    * Hooks
    */
@@ -98,7 +98,7 @@ export default () => {
         throw new Error(locale.request.response.failed.verifyEthereumAddress);
       }
       const { accessToken, sessionPopKeyPair } = await res1.json();
-      update("success");
+      update(Status.SUCCESS);
 
       // Step 2
       const res2 = await fetch("/api/vc/codeChallenge", {
@@ -116,7 +116,7 @@ export default () => {
       }
       const codeChallengeRes: VcCodeChallengeResponse = await res2.json();
       const codeChallenge = codeChallengeRes.codeChallenge;
-      update("success");
+      update(Status.SUCCESS);
 
       // Step 3
       const res3 = await fetch("/api/vc/codeChallenge/sign", {
@@ -134,7 +134,7 @@ export default () => {
       const signedCodeChallengeRes: SignedCodeChallengeResponse =
         await res3.json();
       const signedCodeChallenge = signedCodeChallengeRes.signedCodeChallenge;
-      update("success");
+      update(Status.SUCCESS);
 
       // Step 4
       const res4 = await fetch("/api/vc/credentials", {
@@ -154,10 +154,10 @@ export default () => {
       }
       const resp: VerifiableCredentialsResponse = await res4.json();
       const vc = resp.credentialData;
-      update("success");
+      update(Status.SUCCESS);
       setResValue(JSON.stringify(vc, null, 4));
     } catch (e: unknown) {
-      update("failed");
+      update(Status.FAILED);
       // Error message will be shown in the dialog
       throw e;
     }
@@ -178,8 +178,9 @@ export default () => {
     window.location.replace(url.toString());
   };
 
-  const handleReset = () => {
+  const handleSelectVerify = () => {
     setResValue("");
+    setMode(Mode.VERIFY);
   };
 
   /**
@@ -190,14 +191,16 @@ export default () => {
       <TopContainer
         textareaValue={configPlainFormat}
         isLoading={isLoading}
-        isCodeChallengeReceived={Boolean(data.codeChallenge)}
         onSubmit={handleSubmit}
       />
 
-      {resValue && <Divider />}
+      {resValue && <Divider id="divider" />}
 
       {resValue && (
-        <BottomContainer textareaValue={resValue} onReset={handleReset} />
+        <BottomContainer
+          textareaValue={resValue}
+          onSelectVerify={handleSelectVerify}
+        />
       )}
 
       <ProgressDialog
@@ -212,7 +215,12 @@ export default () => {
           action: handleAction,
         }}
         visible={dialogVisible}
-        setVisible={setDialogVisible}
+        onClickOk={() => {
+          setDialogVisible(false);
+          document
+            .querySelector("#divider")
+            ?.scrollIntoView({ behavior: "smooth" });
+        }}
       />
     </Wrapper>
   );

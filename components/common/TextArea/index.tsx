@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import locale from "@/config/locale";
-import type { Status } from "@/utils/types";
+import { Status } from "@/utils/types";
 import { applyStyleIf } from "@/utils";
 import Button, { Wrapper as $Button } from "./Button";
 import CheckCircle from "components/svg/CheckCircle";
@@ -35,14 +35,14 @@ const TextArea = styled.textarea(
   font-weight: 500;
 
   ${applyStyleIf(
-    $status === "success",
+    $status === Status.SUCCESS,
     `
   border-color: #438F0E;
   `
   )}
 
   ${applyStyleIf(
-    $status === "failed",
+    $status === Status.FAILED,
     `
   border-color: #8F0E0E;
   `
@@ -81,7 +81,7 @@ export default ({
     if (!shadow.current) return;
 
     shadow.current.style.height = "0";
-    const height = Math.max(200, shadow.current.scrollHeight + 4);
+    const height = Math.max(200, shadow.current.scrollHeight + 20);
 
     shadow.current.style.height = `${height}px`;
     lit.current.style.height = `${height}px`;
@@ -97,8 +97,8 @@ export default ({
 
   return (
     <Wrapper>
-      <TextArea ref={lit} {...props} $status={status} />
-      <TextArea ref={shadow} {...props} $shadow />
+      <TextArea ref={lit} {...props} $status={status} spellCheck={false} />
+      <TextArea ref={shadow} {...props} $shadow spellCheck={false} />
 
       {copyable && (
         <Button

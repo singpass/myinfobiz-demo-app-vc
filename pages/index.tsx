@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 
 import locale from "config/locale";
-import type { Mode } from "@/utils/types";
+import { Mode } from "@/utils/types";
 import Header from "components/Header";
 import Button from "components/common/Button";
 import RequestContainer from "components/RequestContainer";
@@ -58,6 +58,7 @@ const TitleContainer = styled.div`
 const Title = styled.div`
   font-size: 2.5rem;
   font-weight: 800;
+  line-height: 1.2;
   max-width: 560px;
   margin-bottom: 16px;
 `;
@@ -74,7 +75,7 @@ const TabGroup = styled.div`
 `;
 
 export default () => {
-  const [mode, setMode] = useState<Mode>("request");
+  const [mode, setMode] = useState<Mode>(Mode.REQUEST);
   return (
     <Wrapper>
       <Header />
@@ -94,24 +95,24 @@ export default () => {
           <Container>
             <TabGroup>
               <Button.Mode
-                active={mode === "request"}
-                onClick={() => setMode("request")}
+                active={mode === Mode.REQUEST}
+                onClick={() => setMode(Mode.REQUEST)}
                 data-testid="request-corporate-vc-btn-tab"
               >
                 {locale.request.tabButton}
               </Button.Mode>
 
               <Button.Mode
-                active={mode === "verify"}
-                onClick={() => setMode("verify")}
+                active={mode === Mode.VERIFY}
+                onClick={() => setMode(Mode.VERIFY)}
                 data-testid="verify-corporate-vc-btn-tab"
               >
                 {locale.verify.tabButton}
               </Button.Mode>
             </TabGroup>
 
-            {mode === "request" && <RequestContainer />}
-            {mode === "verify" && <VerifyContainer />}
+            {mode === Mode.REQUEST && <RequestContainer setMode={setMode} />}
+            {mode === Mode.VERIFY && <VerifyContainer />}
           </Container>
         </Section>
       </OuterSection>

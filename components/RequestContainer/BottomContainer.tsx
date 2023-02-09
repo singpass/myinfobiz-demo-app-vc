@@ -3,6 +3,7 @@ import locale from "@/config/locale";
 
 import TextArea, { Wrapper as $TextArea } from "components/common/TextArea";
 import StatusBanner from "components/common/StatusBanner";
+import { Status } from "@/utils/types";
 
 const Wrapper = styled.div`
   h3 {
@@ -28,10 +29,10 @@ const Footer = styled.div`
 
 export default ({
   textareaValue,
-  onReset,
+  onSelectVerify,
 }: {
   textareaValue: string;
-  onReset: () => void;
+  onSelectVerify: () => void;
 }) => {
   /**
    * Not hook
@@ -43,7 +44,7 @@ export default ({
   footer.splice(
     1,
     0,
-    <span key={footer.length} onClick={onReset}>
+    <span key={footer.length} onClick={onSelectVerify}>
       {locale.request.response.link}
     </span>
   );
@@ -57,7 +58,7 @@ export default ({
         {locale.request.response.title}
       </h3>
 
-      <StatusBanner status="success">
+      <StatusBanner status={Status.SUCCESS}>
         {locale.request.response.successBanner}
       </StatusBanner>
 
@@ -66,7 +67,7 @@ export default ({
         copyable
         value={textareaValue}
         copyText={textareaValue}
-        status="success"
+        status={Status.SUCCESS}
         readOnly
         data-testid="request-corporate-vc-textarea"
       />

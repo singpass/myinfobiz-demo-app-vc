@@ -1,2 +1,8 @@
-export type Status = "success" | "failed";
-export type Mode = "request" | "verify";
+export enum Status {
+  SUCCESS = "success",
+  FAILED = "failed",
+}
+export enum Mode {
+  REQUEST = "request",
+  VERIFY = "verify",
+}
