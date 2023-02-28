@@ -158,10 +158,10 @@ npm run start
 
 ## More Screenshots
 
-|         |                     Default                      |                       Loading                       |                       Success                       |
-| :-----: | :----------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: |
-| Request | ![image](./.github/screenshots/request-home.png) | ![image](./.github/screenshots/request-loading.png) | ![image](./.github/screenshots/request-success.png) |
-| Verify  | ![image](./.github/screenshots/verify-home.png)  | ![image](./.github/screenshots/verify-loading.png)  | ![image](./.github/screenshots/verify-success.png)  |
+|         |                     Default                      |                       Loading                       |                       Success                       |                       Failed                       |
+| :-----: | :----------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: | :------------------------------------------------: |
+| Request | ![image](./.github/screenshots/request-home.png) | ![image](./.github/screenshots/request-loading.png) | ![image](./.github/screenshots/request-success.png) | ![image](./.github/screenshots/request-failed.png) |
+| Verify  | ![image](./.github/screenshots/verify-home.png)  | ![image](./.github/screenshots/verify-loading.png)  | ![image](./.github/screenshots/verify-success.png)  | ![image](./.github/screenshots/verify-failed.png)  |
 
 [jest]: https://jestjs.io/
 [cypress]: https://www.cypress.io/
