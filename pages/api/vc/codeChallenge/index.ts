@@ -18,14 +18,14 @@ export default async function handler(
     });
     return;
   }
-  const ethereumWalletAddress =
-    MYINFO_CONNECTOR_CONFIG.VC_ETHEREUM_WALLET_ADDRESS;
+  const did =
+    MYINFO_CONNECTOR_CONFIG.VC_WALLET_ADDRESS;
   const accessToken = req.body.accessToken;
   const sessionPopKeyPair = req.body.sessionPopKeyPair;
 
   const codeChallengeApiResponse =
     await MyInfoConnector.callCorporateVcCodeChallengeAPI(
-      ethereumWalletAddress,
+      did,
       accessToken,
       sessionPopKeyPair
     );

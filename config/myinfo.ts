@@ -18,7 +18,7 @@ export type MyInfoConnectorConfig = {
   DEBUG_LEVEL: string;
   REALM: string;
   VC_ETHEREUM_PRIVATE_KEY: string;
-  VC_ETHEREUM_WALLET_ADDRESS: string;
+  VC_WALLET_ADDRESS: string;
 };
 
 export const MYINFO_CONNECTOR_CONFIG: MyInfoConnectorConfig = {
@@ -39,5 +39,5 @@ export const MYINFO_CONNECTOR_CONFIG: MyInfoConnectorConfig = {
   DEBUG_LEVEL: "debug",
   REALM: "biz",
   VC_ETHEREUM_PRIVATE_KEY: process.env.VC_ETHEREUM_PRIVATE_KEY,
-  VC_ETHEREUM_WALLET_ADDRESS: process.env.VC_ETHEREUM_WALLET_ADDRESS,
+  VC_WALLET_ADDRESS: process.env.VC_WALLET_ADDRESS,
 };

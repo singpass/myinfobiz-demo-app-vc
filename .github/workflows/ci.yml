@@ -51,7 +51,7 @@ jobs:
       - name: Create Env File
         run: |
           cp .github/.env.ci .env
-          echo "VC_ETHEREUM_WALLET_ADDRESS=${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}" >> .env
+          echo "VC_WALLET_ADDRESS=${{ secrets.VC_WALLET_ADDRESS }}" >> .env
           echo "VC_ETHEREUM_PRIVATE_KEY=${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}" >> .env
           cat .env
       - name: Use Node.js 18
@@ -74,7 +74,7 @@ jobs:
       - name: Create Env File
         run: |
           cp .github/.env.ci .env
-          echo "VC_ETHEREUM_WALLET_ADDRESS=${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}" >> .env
+          echo "VC_WALLET_ADDRESS=${{ secrets.VC_WALLET_ADDRESS }}" >> .env
           echo "VC_ETHEREUM_PRIVATE_KEY=${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}" >> .env
           cat .env
       - name: Chrome headless
@@ -87,7 +87,7 @@ jobs:
           start: npm run start
           wait-on: "http://localhost:3001"
         env:
-          VC_ETHEREUM_WALLET_ADDRESS: ${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}
+          VC_WALLET_ADDRESS: ${{ secrets.VC_WALLET_ADDRESS }}
           VC_ETHEREUM_PRIVATE_KEY: ${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}
 
   test-cypress-chrome-headed:
@@ -99,7 +99,7 @@ jobs:
       - name: Create Env File
         run: |
           cp .github/.env.ci .env
-          echo "VC_ETHEREUM_WALLET_ADDRESS=${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}" >> .env
+          echo "VC_WALLET_ADDRESS=${{ secrets.VC_WALLET_ADDRESS }}" >> .env
           echo "VC_ETHEREUM_PRIVATE_KEY=${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}" >> .env
           cat .env
       - name: Chrome headed
@@ -112,5 +112,5 @@ jobs:
           start: npm run start
           wait-on: "http://localhost:3001"
         env:
-          VC_ETHEREUM_WALLET_ADDRESS: ${{ secrets.VC_ETHEREUM_WALLET_ADDRESS }}
+          VC_WALLET_ADDRESS: ${{ secrets.VC_WALLET_ADDRESS }}
           VC_ETHEREUM_PRIVATE_KEY: ${{ secrets.VC_ETHEREUM_PRIVATE_KEY }}

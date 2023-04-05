@@ -25,6 +25,7 @@ export default async function handler(
   let sessionPopKeyPair;
   try {
     const codeVerifier = getCookie("codeVerifier", { req, res }) as string;
+
     sessionPopKeyPair =
       await MyInfoConnector.securityHelper.generateSessionKeyPair();
     createTokenResult = await MyInfoConnector.getAccessToken(

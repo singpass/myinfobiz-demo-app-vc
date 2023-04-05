@@ -64,7 +64,7 @@ export default async function handler(
   const body = {
     sub: sub,
     scope: MYINFO_CONNECTOR_CONFIG.SCOPE,
-    ethereumWalletAddress: MYINFO_CONNECTOR_CONFIG.VC_ETHEREUM_WALLET_ADDRESS,
+    did: MYINFO_CONNECTOR_CONFIG.VC_WALLET_ADDRESS,
     codeChallenge: codeChallenge,
     signedCodeChallenge: signedCodeChallenge,
   };

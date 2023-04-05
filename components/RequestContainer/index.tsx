@@ -69,15 +69,15 @@ export default ({ setMode }: { setMode: Dispatch<SetStateAction<Mode>> }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.code]);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("/api/codeChallenge")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch("/api/codeChallenge")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setData(data);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   /**
    * Not hook
@@ -165,17 +165,22 @@ export default ({ setMode }: { setMode: Dispatch<SetStateAction<Mode>> }) => {
 
   const handleSubmit = () => {
     console.log(SHOWN_CONFIG); // VC Config value
-    const url = new URL(APP_CONFIG.MYINFO_API_AUTHORIZE);
-    url.searchParams.append("client_id", APP_CONFIG.DEMO_APP_CLIENT_ID!);
-    url.searchParams.append("scope", APP_CONFIG.DEMO_APP_SCOPES!);
-    url.searchParams.append("purpose_id", APP_CONFIG.DEMO_APP_PURPOSE_ID!);
-    url.searchParams.append("code_challenge", data.codeChallenge!);
-    url.searchParams.append(
-      "code_challenge_method",
-      APP_CONFIG.DEMO_APP_CODE_CHALLENGE_METHOD
-    );
-    url.searchParams.append("redirect_uri", APP_CONFIG.DEMO_APP_CALLBACK_URL!);
-    window.location.replace(url.toString());
+    fetch("/api/codeChallenge")
+      .then((res) => res.json())
+      .then((data) => {
+        const url = new URL(APP_CONFIG.MYINFO_API_AUTHORIZE);
+        url.searchParams.append("client_id", APP_CONFIG.DEMO_APP_CLIENT_ID!);
+        url.searchParams.append("scope", APP_CONFIG.DEMO_APP_SCOPES!);
+        url.searchParams.append("purpose_id", APP_CONFIG.DEMO_APP_PURPOSE_ID!);
+        url.searchParams.append("code_challenge", data.codeChallenge!);
+        url.searchParams.append(
+          "code_challenge_method",
+          APP_CONFIG.DEMO_APP_CODE_CHALLENGE_METHOD
+        );
+        url.searchParams.append("redirect_uri", APP_CONFIG.DEMO_APP_CALLBACK_URL!);
+        console.log("url:",url);
+        window.location.replace(url.toString());
+      });
   };
 
   const handleSelectVerify = () => {

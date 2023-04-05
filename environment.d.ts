@@ -1,7 +1,7 @@
 declare namespace NodeJS {
   export interface ProcessEnv {
     readonly VC_ETHEREUM_PRIVATE_KEY: string;
-    readonly VC_ETHEREUM_WALLET_ADDRESS: string;
+    readonly VC_WALLET_ADDRESS: string;
 
     readonly CLIENT_PRIVATE_SIGNING_KEY: string;
     readonly CLIENT_PRIVATE_ENCRYPTION_KEY: string;
