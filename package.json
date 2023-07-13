@@ -14,9 +14,7 @@
     "test:unit": "jest --coverage"
   },
   "dependencies": {
-    "@mattrglobal/jsonld-signatures-bbs": "^1.1.0",
     "@next/font": "13.1.2",
-    "@transmute/compressable-bitstring": "^0.7.0-unstable.66",
     "axios": "^1.2.3",
     "cookies-next": "^2.1.1",
     "eslint": "8.32.0",
@@ -24,9 +22,8 @@
     "ethereumjs-util": "^7.1.5",
     "follow-redirects": "^1.15.2",
     "gsap": "^3.11.4",
-    "jsonld-signatures": "^7.0.0",
     "log4js": "^6.7.1",
-    "myinfo-vc-verifier": "^0.0.2",
+    "myinfo-vc-verifier": "^0.0.6",
     "next": "13.1.2",
     "node-jose": "^2.1.1",
     "react": "18.2.0",
